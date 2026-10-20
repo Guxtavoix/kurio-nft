@@ -12,7 +12,7 @@ export function SpotlightBanner({ nft }: { nft: NftSummary | null | undefined })
       className="relative flex flex-col gap-4 bg-gradient-to-b from-[rgba(210,138,76,0.1)] to-[rgba(210,138,76,0.03)] pt-6 pb-1"
     >
       <div className="flex flex-col items-center gap-4 px-5">
-        <h2 id="spotlight-title" className="text-accent-text w-full text-2xl leading-8 font-bold">
+        <h2 id="spotlight-title" className="text-accent-text w-full text-center text-2xl leading-8 font-bold">
           NFT EM DESTAQUE
         </h2>
         <p className="text-fg text-center text-[22px] leading-4 font-bold">OFERTA LIMITADA</p>

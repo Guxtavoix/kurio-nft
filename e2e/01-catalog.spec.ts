@@ -105,4 +105,31 @@ test.describe('Catálogo: busca, filtros, ordenação, paginação e histórico'
     await page.goto('/?q=nao-existe-nada&scenario=fast')
     await expect(page.getByRole('heading', { name: 'Nenhum NFT encontrado' })).toBeVisible()
   })
+
+  test('faixa de preço digitada nos campos mínimo/máximo, com validação', async ({ page }) => {
+    await openApp(page, '/')
+    const isMobile = (page.viewportSize()?.width ?? 1440) < 1024
+    if (isMobile) await page.getByRole('button', { name: /^Filtros/ }).click()
+    const scope = isMobile ? page.getByRole('dialog') : page.getByTestId('catalog-filters')
+
+    // Collections are listed alphabetically.
+    const labels = await scope.getByRole('group', { name: 'Coleções' }).locator('label').allInnerTexts()
+    const names = labels.map((l) => l.replace(/\(\d+\)[\s\S]*/, '').trim())
+    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b, 'pt-BR')))
+
+    await scope.getByTestId('price-min').fill('3')
+    await scope.getByTestId('price-max').fill('1')
+    await scope.getByRole('button', { name: 'Aplicar' }).click()
+    await expect(scope.getByText('O mínimo não pode ser maior que o máximo')).toBeVisible()
+
+    await scope.getByTestId('price-min').fill('1,5')
+    await scope.getByTestId('price-max').fill('4')
+    await scope.getByTestId('price-max').press('Enter')
+    await expect(page).toHaveURL(/minPrice=%221\.50%22|minPrice=1\.50/)
+    await expect(page).toHaveURL(/maxPrice=%224\.00%22|maxPrice=4\.00/)
+    if (isMobile) await page.keyboard.press('Escape')
+    const prices = (await page.getByTestId('nft-card-price').allTextContents()).map((t) => Number(t.replace(' ETH', '')))
+    expect(prices.length).toBeGreaterThan(0)
+    for (const p of prices) expect(p >= 1.5 && p <= 4).toBe(true)
+  })
 })
