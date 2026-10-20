@@ -2,7 +2,8 @@
 
 Implementação do desafio frontend da Jungle Gaming: marketplace de NFTs com descoberta, compra e conta do colecionador, em desktop e mobile, seguindo o layout do Figma.
 
-- **Demo:** _URL pública do deploy (Vercel)_ — `https://<seu-projeto>.vercel.app`
+- **Demo:** https://kurio-nft-puce.vercel.app
+- **Repositório:** https://github.com/Guxtavoix/kurio-nft
 - **Arquitetura e decisões:** [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Lighthouse:** [lighthouse/SUMMARY.md](lighthouse/SUMMARY.md)
 
