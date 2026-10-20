@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc", "jsx-a11y"],
+  "ignorePatterns": ["src/routeTree.gen.ts", "public/mockServiceWorker.js", "src/components/ui/**"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "react/refs": "off",
+    "react/set-state-in-effect": "warn",
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/anchor-is-valid": "error",
+    "jsx-a11y/label-has-associated-control": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/routes/**"],
+      "rules": { "react/only-export-components": "off" }
+    }
+  ]
+}
